@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.giftofhappiness.roomdatabaseyoutubelesson.R
+import com.giftofhappiness.roomdatabaseyoutubelesson.data.Friends
 import com.giftofhappiness.roomdatabaseyoutubelesson.data.User
 import com.giftofhappiness.roomdatabaseyoutubelesson.data.UserViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
@@ -42,14 +43,18 @@ class AddFragment : Fragment() {
     @InternalCoroutinesApi
     private fun insertDataToDatabase(){
 
-        val firstName = editTextTextPersonName.text.toString()
-        val lastName = editTextTextPersonName2.text.toString()
-        val age = editTextNumber.text
+        val firstName = firstNameTxtBox.text.toString()
+        val lastName = lastNameTxtBox.text.toString()
+        val age = ageTxtBox.text
+
 
         if(inputCheck(firstName,lastName,age)){
 
             val user = User(id=0,firstName,lastName, Integer.parseInt(age.toString()))
+            val friend = Friends(friendId = 0,userCreatorId = 0,lastName)
             mUserViewModel.addUser(user)
+            mUserViewModel.addFriend(friend)
+
 
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)

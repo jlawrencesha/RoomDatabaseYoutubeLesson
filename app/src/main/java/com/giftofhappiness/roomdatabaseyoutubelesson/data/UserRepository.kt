@@ -9,4 +9,8 @@ class UserRepository(private val userDao: UserDao) {
 
     }
 
+    suspend fun addFriend(friends: Friends){
+        userDao.addFriend(friends)
+    }
+
 }
